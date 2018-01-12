@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>register</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/register.css"/>
+    <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-form.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/sweetalert-dev.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //注册按钮事件
+            $("#registerButton").click(function () {
+                $("#registerForm").ajaxSubmit({
+                    url: "./register.do",
+                    type:"POST",
+                    dataType:"json",
+                    error:function(data){
+                        swal({
+                            title: "服务器错误，请联系管理员",
+                            text: "5秒后自动消失",
+                            timer: 5000,
+                            type:"error",
+                            showConfirmButton: true
+                        });
+                    },
+                    success:function(data){
+                        if (data == '1'){
+                            swal({
+                                title: "注册成功",
+                                text: "5秒后自动消失",
+                                timer: 5000,
+                                type:"success",
+                                showConfirmButton: true
+                            });
+                        }
+                        else {
+                            swal({
+                                title: "注册失败",
+                                text: "5秒后自动消失",
+                                timer: 5000,
+                                type:"error",
+                                showConfirmButton: true
+                            });
+                        }
+                    }
+                });
+            });
+
+            //返回按钮事件
+            $("#returnButton").click(function(){
+                self.location='login.html';
+            });
+        })
+
+
+    </script>
+
+</head>
+<body>
+       <div id="part1"></div>
+
+       <div id="part2">
+             <h1 style="margin-bottom: 50px">注册系统</h1>
+
+           <div class="container">
+               <form class="form-horizontal" id="registerForm" method="post">
+                   <div class="form-group">
+                       <div class="col-xs-offset-2 col-xs-8">
+                           <input type="text" class="form-control" id="NameText" name="loginName" placeholder="请输入用户名">
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <div class=" col-xs-offset-2 col-xs-8">
+                           <input type="password" class="form-control" id="inputPassword" name="loginPassword" placeholder="请输入密码">
+                       </div>
+                   </div>
+
+                   <div class="form-group">
+                       <div class="col-xs-offset-2 col-xs-4">
+                           <button type="button" class="btn btn-default" id="returnButton">返回</button>
+                       </div>
+                       <div class="col-xs-offset-1 col-xs-4">
+                           <button type="button" class="btn btn-default" id="registerButton">注册</button>
+                       </div>
+                   </div>
+               </form>
+           </div>
+       </div>
+</body>
+</html>
